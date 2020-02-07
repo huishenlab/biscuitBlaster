@@ -58,7 +58,7 @@ pigz -p 40 ${SAMPLE[i]}.clipped.fastq
 samtools index ${SAMPLE[i]}.sorted.markdup.withdisc_split_clip.hg38.bam
 
 #clean up the sams...
-if [[ -f ${SAMPLE[i]}.disc.hg38.bam ]] && [[ -f ${SAMPLE[i]}.split.hg38.bam ]]; then rm *.sam; fi
+if [[ -f ${SAMPLE[i]}.disc.hg38.bam ]] && [[ -f ${SAMPLE[i]}.split.hg38.bam ]]; then rm ${SAMPLE[i]}*.sam; fi
 
 EOF
 done
