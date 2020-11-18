@@ -32,11 +32,11 @@ cd /secondary/projects/triche/ben_projects/biscuit_manuscript/analysis/biscuit_t
 
 #these are directional libs
 #Launch biscuit
-biscuit align -M -R '@RG\tLB:hg38\tID:WGBS_${SAMPLE[i]}\tPL:Illumina\tPU:hiseq2000\tSM:${SAMPLE[i]}' \
--t 40 -b 1 \
+biscuit align -R '@RG\tLB:hg38\tID:WGBS_${SAMPLE[i]}\tPL:Illumina\tPU:hiseq2000\tSM:${SAMPLE[i]}' \
+-@ 40 -b 1 \
 /secondary/projects/triche/ben_projects/references/human/hg38/indexes/biscuit_gencode/hg38_PA \
 ${SAMPLE[i]}.pe1.fq.gz ${SAMPLE[i]}.pe2.fq.gz | \
-samblaster -M --addMateTags | parallel --tmpdir ${tmpdir} --pipe --tee {} ::: 'samblaster -M -a -e -u ${SAMPLE[i]}.clipped.fastq -d ${SAMPLE[i]}.disc.hg38.sam -s ${SAMPLE[i]}.split.hg38.sam -o /dev/null' \
+samblaster --addMateTags | parallel --tmpdir ${tmpdir} --pipe --tee {} ::: 'samblaster -a -e -u ${SAMPLE[i]}.clipped.fastq -d ${SAMPLE[i]}.disc.hg38.sam -s ${SAMPLE[i]}.split.hg38.sam -o /dev/null' \
 'samtools view -hb | samtools sort -@ 8 -m 5G -o ${SAMPLE[i]}.sorted.markdup.withdisc_split_clip.hg38.bam -O BAM -'
 
 #you can collect the split and discordant bams out of smoove too
